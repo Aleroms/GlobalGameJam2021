@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class PlayerClick : MonoBehaviour
 {
+    GameManager gm;
 
-    void Update()
+	private void Start()
+	{
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+	}
+	void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
@@ -16,12 +21,15 @@ public class PlayerClick : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
             if (hit.collider.tag == "Ground")
             {
-                Debug.Log("ground");
+              //  Debug.Log("sending tag to GameManager: Ground");
+                gm.Digging(hit.collider.tag,hit.collider.transform);
+                //hit.collider.transform
                 
             }
             if(hit.collider.tag == "Diamond")
 			{
-                Debug.Log("Diamond");
+               // Debug.Log("sending tag to GameManager: Diamond");
+                gm.Digging(hit.collider.tag,hit.collider.transform);
 			}
         }
     }
